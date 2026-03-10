@@ -1,0 +1,10 @@
+# Frontend
+ecommerce-frontend/node_modules/
+ecommerce-frontend/dist/
+.env
+
+# Backend
+ecommerce-backend/venv/
+ecommerce-backend/__pycache__/
+ecommerce-backend/*.db
+.DS_Store
