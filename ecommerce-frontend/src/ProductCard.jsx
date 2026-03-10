@@ -1,6 +1,9 @@
 import React from "react";
+import { useCart } from "./CartContext"; // 1. Import the hook
 
-const ProductCard = ({ product, addToCart }) => {
+const ProductCard = ({ product }) => {
+  const { addToCart } = useCart(); // 2. Pull the function from global state
+
   return (
     <div className="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md">
       {/* Product Image Container */}
@@ -34,7 +37,7 @@ const ProductCard = ({ product, addToCart }) => {
 
         {/* Action Button */}
         <button
-          onClick={() => addToCart(product)}
+          onClick={() => addToCart(product)} // 3. This now triggers the global cart + opens drawer
           className="w-full mt-4 py-3 px-6 rounded-xl font-bold text-white 
              bg-gradient-to-r from-orange-500 via-orange-600 to-rose-600 
              hover:from-orange-400 hover:via-orange-500 hover:to-rose-500 

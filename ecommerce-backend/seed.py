@@ -79,7 +79,7 @@ def seed_data():
             title="Leather Laptop Sleeve",
             description="Handcrafted genuine leather for 14-inch laptops.",
             price=55.00,
-            image_url="https://images.unsplash.com/photo-1544333346-64e3fe1bad65?w=500",
+            image_url="https://placehold.jp/24/1f2937/fb923c/500x500.png?text=Leather%20Laptop%20Sleeve",
             category_id=tech_category.id,
             stock_quantity=10
         ),
@@ -104,7 +104,7 @@ def seed_data():
             title="Smart Home Hub",
             description="Control your lights, locks, and music with one device.",
             price=115.00,
-            image_url="https://images.unsplash.com/photo-1558002038-103792e07927?w=500",
+            image_url="https://images.unsplash.com/photo-1543512214-318c7553f230?auto=format&fit=crop&w=500&q=80",
             category_id=tech_category.id,
             stock_quantity=14
         ),
