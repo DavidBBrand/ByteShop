@@ -6,6 +6,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     // 1. Define the fetch function
@@ -39,28 +40,39 @@ function App() {
 
   if (error)
     return (
+  
       <div className="flex h-screen items-center justify-center text-red-500 font-bold">
         {error}
       </div>
     );
-  return (
-    <div className="max-w-6xl mx-auto p-6">
-      <header className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">ByteShop</h1>
-        <div className="bg-gray-800 text-white px-4 py-2 rounded-full">
-          🛒 Cart: {cart.length} items
+return (
+    <div className="min-h-screen bg-gray-900 text-white">
+      {/* 1. STICKY GRADIENT NAVBAR */}
+      <nav className="sticky top-0 z-50 bg-gradient-to-r from-gray-900 via-gray-800 to-black p-4 border-b border-orange-500/30 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          {/* GRADIENT LOGO */}
+          <h1 className="text-3xl font-extrabold bg-gradient-to-r from-orange-400 to-rose-400 bg-clip-text text-transparent">
+            ByteShop
+          </h1>
+          
+          <button className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-full transition-all border border-gray-700">
+            🛒 Cart: <span className="text-orange-400 font-bold">{cart.length}</span> items
+          </button>
         </div>
-      </header>
+      </nav>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            onAddToCart={() => addToCart(product)} // Pass the function down
-          />
-        ))}
-      </div>
+      {/* 2. MAIN PRODUCT GRID */}
+      <main className="max-w-7xl mx-auto p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              addToCart={addToCart}
+            />
+          ))}
+        </div>
+      </main>
     </div>
   );
 }
