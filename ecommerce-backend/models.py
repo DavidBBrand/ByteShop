@@ -11,7 +11,6 @@ class Order(Base):
     shipping_address = Column(String)
     total_price = Column(Float)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-    # will also add an OrderItem table later to link products to orders
     # cascade="all, delete-orphan" means if the Order is deleted, 
     # the OrderItems are deleted too.
     items = relationship("OrderItem", back_populates="order", cascade="all, delete-orphan")
@@ -27,7 +26,7 @@ class OrderItem(Base):
 
     # Relationships for easy data access
     order = relationship("Order", back_populates="items")
-    product = relationship("Product") # No back_populates needed on Product unless you want to see all orders for a product
+    product = relationship("Product") # No back_populates needed on Product unless ya want to see all orders for a product
 
 class Category(Base):
     __tablename__ = "categories"

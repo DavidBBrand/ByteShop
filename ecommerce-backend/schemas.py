@@ -1,5 +1,8 @@
 from pydantic import BaseModel
+from typing import List
 
+
+# ---  Product Schemas ---
 class ProductBase(BaseModel):
     title: str
     description: str
@@ -11,5 +14,17 @@ class ProductCreate(ProductBase):
 
 class Product(ProductBase):
     id: int
-    class Config:
-        orm_mode = True # Tells Pydantic to read data even if it's not a dict
+    model_config ={"from_attributes" : True} # Modern Pydantic v2 syntax for ORM compatibility
+
+# --- Order Schemas ---    
+class CartItemIn(BaseModel):
+    product_id: int
+    quantity: int
+    price: float
+    
+class OrderCreate(BaseModel):
+    customer_name: str
+    email: str
+    shipping_address: str
+    total_price: float
+    items: List[CartItemIn]
