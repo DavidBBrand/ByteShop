@@ -12,6 +12,23 @@ class Order(Base):
     total_price = Column(Float)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     # will also add an OrderItem table later to link products to orders
+    # cascade="all, delete-orphan" means if the Order is deleted, 
+    # the OrderItems are deleted too.
+    items = relationship("OrderItem", back_populates="order", cascade="all, delete-orphan")
+
+class OrderItem(Base):
+    __tablename__ = "order_items"
+
+    id = Column(Integer, primary_key=True, index=True)
+    order_id = Column(Integer, ForeignKey("orders.id"))
+    product_id = Column(Integer, ForeignKey("products.id"))
+    quantity = Column(Integer, default=1)
+    price_at_purchase = Column(Float, nullable=False)
+
+    # Relationships for easy data access
+    order = relationship("Order", back_populates="items")
+    product = relationship("Product") # No back_populates needed on Product unless you want to see all orders for a product
+
 class Category(Base):
     __tablename__ = "categories"
     id = Column(Integer, primary_key=True, index=True)
