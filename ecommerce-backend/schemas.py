@@ -22,6 +22,7 @@ class ProductBase(BaseModel):
     description: str
     price: float
     image_url: str
+    stock_quantity: int
 
 class ProductCreate(ProductBase):
     category_id: int
