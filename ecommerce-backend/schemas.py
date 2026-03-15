@@ -1,6 +1,20 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import List
 
+# --- User Schemas ---
+class UserBase(BaseModel):
+    username: str
+    email: EmailStr
+    
+class UserCreate(UserBase):
+    password: str # this is used only when recieving data from the user
+    
+class UserOut(UserBase):
+    id: int
+    is_active: bool
+    
+    class Config:
+        from_attributes = True # This tells Pydantic to read data even from ORM objects, not just dicts
 
 # ---  Product Schemas ---
 class ProductBase(BaseModel):
