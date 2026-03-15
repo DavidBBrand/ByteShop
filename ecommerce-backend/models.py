@@ -1,11 +1,22 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey # For defining table columns and relationships
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Boolean # For defining table columns and relationships
 from sqlalchemy.orm import relationship # For defining relationships between tables
 from sqlalchemy.sql import func # For automatic timestamping
 from database import Base # <-- Import the Base from database.py to define our models
 
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True, nullable=False)
+    email = Column(String, unique=True, index=True, nullable=False)
+    hashed_password = Column(String, nullable=False)
+    is_active = Column(Boolean, default=True)
+    
+    orders = relationship("Order", back_populates="owner") # One-to-many relationship with orders
+
 class Order(Base):
     __tablename__ = "orders"
     id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     customer_name = Column(String)
     email = Column(String)
     shipping_address = Column(String)
@@ -14,6 +25,8 @@ class Order(Base):
     # cascade="all, delete-orphan" means if the Order is deleted, 
     # the OrderItems are deleted too.
     items = relationship("OrderItem", back_populates="order", cascade="all, delete-orphan")
+    
+    owner = relationship("User", back_populates="orders") # Link back to the user who made the order
 
 class OrderItem(Base):
     __tablename__ = "order_items"
@@ -41,7 +54,7 @@ class Product(Base):
     description = Column(String)
     price = Column(Float)
     image_url = Column(String)
-    stock_quantity = Column(Integer)
+    stock_quantity = Column(Integer, default=0)
     category_id = Column(Integer, ForeignKey("categories.id"))
     
     category = relationship("Category", back_populates="products")
