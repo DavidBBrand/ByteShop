@@ -1,9 +1,16 @@
 import React from 'react';
 import { useCart } from './CartContext';
+import { useNavigate } from 'react-router-dom'; // Import the hook
 
 export default function CartDrawer() {
   const { isCartOpen, setIsCartOpen, cartItems, updateQuantity, removeFromCart, cartTotal } = useCart();
-
+  const navigate = useNavigate(); // initialize the hook
+  
+  // create a function to handle checkout button click
+    const handleCheckout = () => {
+        setIsCartOpen(false); // Close the cart drawer
+        navigate('/checkout'); // Navigate to the checkout page
+    }
   return (
     <>
       <div className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity ${isCartOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsCartOpen(false)} />
@@ -35,7 +42,9 @@ export default function CartDrawer() {
               <span>Total:</span>
               <span className="text-orange-500">${cartTotal.toFixed(2)}</span>
             </div>
-            <button className="w-full py-4 bg-orange-600 font-bold uppercase hover:bg-orange-500 transition-colors">Checkout</button>
+            <button className="w-full py-4 bg-orange-600 font-bold uppercase hover:bg-orange-500 transition-colors" onClick={handleCheckout}>
+              Checkout
+            </button>
           </div>
         </div>
       </div>

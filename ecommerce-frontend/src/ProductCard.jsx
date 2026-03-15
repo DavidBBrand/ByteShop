@@ -15,7 +15,8 @@ const ProductCard = ({ product }) => {
         />
         <div className="absolute top-2 right-2">
           <span className="rounded-full bg-white/90 px-2 py-1 text-xs font-semibold text-slate-700 backdrop-blur-sm">
-            {product.stock_quantity > 0 ? "In Stock" : "Out of Stock"}
+            {/* Force it to a number just in case */}
+            {Number(product.stock_quantity) > 0 ? "In Stock" : "Out of Stock"}
           </span>
         </div>
       </div>
@@ -38,8 +39,8 @@ const ProductCard = ({ product }) => {
         {/* Action Button */}
         <button
           onClick={() => addToCart(product)} // 3. This now triggers the global cart + opens drawer
-          className="w-full mt-4 py-3 px-6 rounded-xl font-bold text-white 
-             bg-gradient-to-r from-orange-500 via-orange-600 to-rose-600 
+          className="w-full mt-auto py-3 px-6 rounded-xl font-bold text-white 
+             bg-linear-to-r from-orange-600 via-rose-800 to-indigo-800 
              hover:from-orange-400 hover:via-orange-500 hover:to-rose-500 
              active:scale-95 transition-all duration-200 
              shadow-[0_4px_15px_rgba(249,115,22,0.4)] 
