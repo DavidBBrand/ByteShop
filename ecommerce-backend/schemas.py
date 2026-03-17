@@ -43,3 +43,24 @@ class OrderCreate(BaseModel):
     shipping_address: str
     total_price: float
     items: List[CartItemIn]
+    # --- Response Schemas for Order History ---
+
+class OrderItem(BaseModel):
+    id: int
+    product_id: int
+    quantity: int
+    price_at_purchase: float
+
+    class Config:
+        from_attributes = True
+
+class Order(BaseModel):
+    id: int
+    customer_name: str
+    shipping_address: str
+    total_price: float
+    # This allows us to see the list of items inside the order
+    items: List[OrderItem] = [] 
+
+    class Config:
+        from_attributes = True

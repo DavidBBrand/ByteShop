@@ -124,3 +124,13 @@ def create_order(
         if isinstance(e, HTTPException):
             raise e
         raise HTTPException(status_code=500, detail=str(e))
+    
+    # ---NEW: ORDER HISTORY ---
+    
+@app.get("/orders/me", response_model=List[schemas.Order])
+def get_my_orders(
+    db: Session = Depends(get_db), 
+    current_user: models.User = Depends(auth_utils.get_current_user)
+):
+    orders = db.query(models.Order).filter(models.Order.user_id == current_user.id).all()
+    return orders
