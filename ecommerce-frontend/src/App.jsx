@@ -5,8 +5,9 @@ import ProductCard from "./ProductCard";
 import CartDrawer from './CartDrawer';
 import Checkout from './Checkout'; 
 import Login from './Login';  
-import { useCart } from './CartContext';
+import { useCart } from './useCart';
 import { useAuth } from './AuthContext'; 
+import Register from './Register';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -42,13 +43,13 @@ function App() {
         <nav className="sticky top-0 z-40 bg-gradient-to-r from-gray-900 via-gray-800 to-black p-4 border-b border-orange-500/30 backdrop-blur-md">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <h1 className="text-3xl font-extrabold bg-gradient-to-r from-orange-400 to-rose-400 bg-clip-text text-transparent tracking-tighter">
+              <h1 className="text-3xl font-extrabold bg-gradient-to-r from-orange-500 to-rose-500 bg-clip-text text-transparent tracking-tighter">
                 ByteShop
               </h1>
             </Link>
             
             <div className="flex items-center gap-4">
-              {/* 4. Conditional Auth Links */}
+              {/* Conditional Auth Links */}
               {user ? (
                 <>
                   <span className="text-gray-400 text-sm hidden md:block">Hi, {user.email}</span>
@@ -90,6 +91,7 @@ function App() {
           
           {/* LOGIN ROUTE */}
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
 
       </div>

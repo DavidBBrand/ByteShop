@@ -1,12 +1,12 @@
 import React from 'react';
-import { useCart } from './CartContext';
-import { useNavigate } from 'react-router-dom'; // 1. Import this
+import { useCart } from './useCart';
+import { useNavigate } from 'react-router-dom'; 
 
 export default function CartDrawer() {
   const { isCartOpen, setIsCartOpen, cartItems, updateQuantity, removeFromCart, cartTotal } = useCart();
   const navigate = useNavigate(); // 2. Initialize it
 
-  // 3. Create a helper to handle the transition
+  //  Create a helper to handle the transition
   const handleCheckoutClick = () => {
     setIsCartOpen(false); // Close the drawer first
     navigate('/checkout'); // Then send them to the checkout page
@@ -50,7 +50,7 @@ export default function CartDrawer() {
               <span className="text-orange-500">${cartTotal.toFixed(2)}</span>
             </div>
             
-            {/* 4. Add the onClick handler here */}
+            {/*  Add the onClick handler here */}
             <button 
               onClick={handleCheckoutClick}
               disabled={cartItems.length === 0}

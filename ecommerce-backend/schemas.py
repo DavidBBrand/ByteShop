@@ -3,7 +3,7 @@ from typing import List
 
 # --- User Schemas ---
 class UserBase(BaseModel):
-    username: str
+    username: str # Now username is optional and won't be required for registration
     email: EmailStr
     
 class UserCreate(UserBase):
