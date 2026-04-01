@@ -1,5 +1,5 @@
 import React from "react";
-import { useCart } from "./CartContext"; // 1. Import the hook
+import { useCart } from "./useCart"; // 1. Import the hook
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart(); // 2. Pull the function from global state
@@ -15,8 +15,7 @@ const ProductCard = ({ product }) => {
         />
         <div className="absolute top-2 right-2">
           <span className="rounded-full bg-white/90 px-2 py-1 text-xs font-semibold text-slate-700 backdrop-blur-sm">
-            {/* Force it to a number just in case */}
-            {Number(product.stock_quantity) > 0 ? "In Stock" : "Out of Stock"}
+            {product.stock_quantity > 0 ? "In Stock" : "Out of Stock"}
           </span>
         </div>
       </div>
@@ -40,7 +39,7 @@ const ProductCard = ({ product }) => {
         <button
           onClick={() => addToCart(product)} // 3. This now triggers the global cart + opens drawer
           className="w-full mt-auto py-3 px-6 rounded-xl font-bold text-white 
-             bg-linear-to-r from-orange-600 via-rose-800 to-indigo-800 
+             bg-linear-to-r from-orange-300 via-orange-500 to-rose-800 
              hover:from-orange-400 hover:via-orange-500 hover:to-rose-500 
              active:scale-95 transition-all duration-200 
              shadow-[0_4px_15px_rgba(249,115,22,0.4)] 

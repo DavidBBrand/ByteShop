@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { CartContext } from './CartContext';
 
 export const CartProvider = ({ children }) => {
-  // 1. State for opening/closing the sidebar
+  // State for opening/closing the sidebar
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // 2. State for items (with LocalStorage persistence)
+  // State for items (with LocalStorage persistence)
   const [cartItems, setCartItems] = useState(() => {
     const saved = localStorage.getItem('byteShopCart');
     return saved ? JSON.parse(saved) : [];
   });
 
-  // 3. Keep LocalStorage in sync
+  // Keep LocalStorage in sync
   useEffect(() => {
     localStorage.setItem('byteShopCart', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // 4. Core logic functions
+  // Core logic functions
   const addToCart = (product) => {
     setCartItems(prev => {
       const exists = prev.find(item => item.id === product.id);
@@ -40,7 +40,7 @@ export const CartProvider = ({ children }) => {
     setCartItems(prev => prev.filter(item => item.id !== id));
   };
 
-  // 5. Derived state (math)
+  // Derived state (math)
   const cartTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 

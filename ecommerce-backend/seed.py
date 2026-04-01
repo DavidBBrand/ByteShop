@@ -123,13 +123,69 @@ def seed_data():
             image_url="https://images.unsplash.com/photo-1585338107529-13afc5f02586?w=500",
             category_id=tech_category.id,
             stock_quantity=7
+        ),
+        models.Product(
+            title="Gaming GPU RTX 4070",
+            description="High-performance graphics card for 4K gaming and 3D rendering.",
+            price=599.99,
+            image_url="https://images.unsplash.com/photo-1591488320449-011701bb6704?w=500",
+            category_id=tech_category.id,
+            stock_quantity=4
+        ),
+        models.Product(
+            title="Ergonomic Office Chair",
+            description="Breathable mesh back with adjustable lumbar support and headrest.",
+            price=249.50,
+            image_url="https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?w=500",
+            category_id=tech_category.id,
+            stock_quantity=10
+        ),
+        models.Product(
+            title="Braided USB-C Cable (2m)",
+            description="Ultra-durable nylon braiding with support for 100W power delivery.",
+            price=18.00,
+            image_url="https://images.unsplash.com/photo-1610492421943-e380e2272714?w=500",
+            category_id=tech_category.id,
+            stock_quantity=100
+        ),
+        models.Product(
+            title="Standing Desk Converter",
+            description="Transform any desk into a sit-stand workstation instantly.",
+            price=135.00,
+            image_url="https://images.unsplash.com/photo-1530099486328-e021101a494a?w=500",
+            category_id=tech_category.id,
+            stock_quantity=6
+        ),
+        models.Product(
+            title="Blue Light Blocking Glasses",
+            description="Reduce eye strain during long coding sessions with style.",
+            price=32.00,
+            image_url="https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=500",
+            category_id=tech_category.id,
+            stock_quantity=40
+        ),
+        models.Product(
+            title="Dual Monitor Arm",
+            description="Heavy-duty gas spring arm to reclaim your desk space.",
+            price=75.00,
+            image_url="https://images.unsplash.com/photo-1547119957-630f9c44b952?w=500",
+            category_id=tech_category.id,
+            stock_quantity=15
+        ),
+        models.Product(
+            title="Professional Cable Management Kit",
+            description="Sleeves, clips, and ties to hide that 'cable spaghetti'.",
+            price=22.99,
+            image_url="https://images.unsplash.com/photo-1603539947678-cd3954ed515d?w=500",
+            category_id=tech_category.id,
+            stock_quantity=35
         )
     ]
-
 
     db.add_all(sample_products)
     db.commit()
     print("Database seeded successfully! 🌱")
+
 
 if __name__ == "__main__":
     seed_data()

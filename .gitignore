@@ -5,6 +5,7 @@ ecommerce-frontend/dist/
 
 # Backend
 ecommerce-backend/venv/
-ecommerce-backend/__pycache__/
+**/__pycache__/
+*.pyc
 ecommerce-backend/*.db
 .DS_Store

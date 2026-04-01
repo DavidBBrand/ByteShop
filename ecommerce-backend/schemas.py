@@ -1,6 +1,20 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import List
 
+# --- User Schemas ---
+class UserBase(BaseModel):
+    username: str # Now username is optional and won't be required for registration
+    email: EmailStr
+    
+class UserCreate(UserBase):
+    password: str # this is used only when recieving data from the user
+    
+class UserOut(UserBase):
+    id: int
+    is_active: bool
+    
+    class Config:
+        from_attributes = True # This tells Pydantic to read data even from ORM objects, not just dicts
 
 # ---  Product Schemas ---
 class ProductBase(BaseModel):
@@ -29,3 +43,24 @@ class OrderCreate(BaseModel):
     shipping_address: str
     total_price: float
     items: List[CartItemIn]
+    # --- Response Schemas for Order History ---
+
+class OrderItem(BaseModel):
+    id: int
+    product_id: int
+    quantity: int
+    price_at_purchase: float
+
+    class Config:
+        from_attributes = True
+
+class Order(BaseModel):
+    id: int
+    customer_name: str
+    shipping_address: str
+    total_price: float
+    # This allows us to see the list of items inside the order
+    items: List[OrderItem] = [] 
+
+    class Config:
+        from_attributes = True
