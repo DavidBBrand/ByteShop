@@ -1,51 +1,69 @@
 import React from "react";
-import { useCart } from "./useCart"; // 1. Import the hook
+import { useCart } from "./useCart";
 
 const ProductCard = ({ product }) => {
-  const { addToCart } = useCart(); // 2. Pull the function from global state
+  const { addToCart } = useCart();
 
   return (
-    <div className="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md">
+    <div className="group flex flex-col overflow-hidden rounded-xl border border-gray-700 bg-gray-800 shadow-sm transition-all hover:shadow-md hover:border-orange-500/50">
       {/* Product Image Container */}
-      <div className="relative aspect-square overflow-hidden bg-slate-100">
+      <div className="relative aspect-square overflow-hidden bg-gray-900">
         <img
           src={product.image_url}
           alt={product.title}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
-        <div className="absolute top-2 right-2">
-          <span className="rounded-full bg-white/90 px-2 py-1 text-xs font-semibold text-slate-700 backdrop-blur-sm">
-            {product.stock_quantity > 0 ? "In Stock" : "Out of Stock"}
-          </span>
-        </div>
       </div>
 
       {/* Product Details */}
       <div className="flex flex-1 flex-col p-4">
         <div className="mb-2 flex items-start justify-between">
-          <h3 className="text-sm font-bold text-slate-800 line-clamp-1">
+          <h3 className="text-sm font-bold text-white line-clamp-1">
             {product.title}
           </h3>
-          <span className="text-lg font-bold text-blue-600">
+          <span className="text-lg font-bold text-orange-400">
             ${product.price.toFixed(2)}
           </span>
         </div>
 
-        <p className="mb-4 text-xs text-slate-500 line-clamp-2">
+        <p className="mb-4 text-xs text-gray-400 line-clamp-2 italic">
           {product.description}
         </p>
 
+        {/* Stock Status Section - Now properly placed below description */}
+        <div className="flex items-center justify-between mb-4 mt-auto">
+          {product.stock_quantity > 0 ? (
+            <div className="flex flex-col">
+              <span className="text-emerald-400 text-[10px] font-black uppercase tracking-widest">
+                In Stock
+              </span>
+              <span
+                className={`text-xs font-medium ${
+                  product.stock_quantity < 5 ? "text-rose-400 animate-pulse" : "text-gray-500"
+                }`}
+              >
+                {product.stock_quantity} units available
+              </span>
+            </div>
+          ) : (
+            <span className="text-rose-600 text-[10px] font-black uppercase tracking-widest">
+              Out of Stock
+            </span>
+          )}
+        </div>
+
         {/* Action Button */}
         <button
-          onClick={() => addToCart(product)} // 3. This now triggers the global cart + opens drawer
-          className="w-full mt-auto py-3 px-6 rounded-xl font-bold text-white 
-             bg-linear-to-r from-orange-300 via-orange-500 to-rose-800 
-             hover:from-orange-400 hover:via-orange-500 hover:to-rose-500 
-             active:scale-95 transition-all duration-200 
-             shadow-[0_4px_15px_rgba(249,115,22,0.4)] 
-             hover:shadow-[0_6px_20px_rgba(249,115,22,0.6)]"
+          onClick={() => addToCart(product)}
+          disabled={product.stock_quantity === 0}
+          className={`w-full py-3 px-6 rounded-xl font-bold text-white transition-all duration-200 
+            ${
+              product.stock_quantity === 0
+                ? "bg-gray-700 cursor-not-allowed opacity-50 text-gray-500"
+                : "bg-linear-to-r from-orange-500 via-orange-600 to-rose-600 hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20"
+            }`}
         >
-          Add to Cart
+          {product.stock_quantity === 0 ? "Sold Out" : "Add to Cart"}
         </button>
       </div>
     </div>

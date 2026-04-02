@@ -9,6 +9,7 @@ import { useCart } from "./useCart";
 import { useAuth } from "./AuthContext";
 import Register from "./Register";
 import Orders from "./Orders";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -74,7 +75,7 @@ function App() {
               {user && user.email ? (
                 <>
                   <span className="text-gray-400 text-sm hidden md:block">
-                    Hi, <span className="text-orange-300 font-medium">{user.email}</span>
+                    Hello, <span className="text-orange-300 font-medium">{user.email}</span>!
                   </span>
                   <button
                     onClick={handleLogout}
@@ -131,8 +132,8 @@ function App() {
             }
           />
 
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/orders" element={<Orders />} />
+          <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+          <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
           {/* LOGIN ROUTE */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

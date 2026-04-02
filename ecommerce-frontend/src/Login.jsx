@@ -24,8 +24,8 @@ const Login = () => {
         onSubmit={handleLogin}
         className="bg-gray-800 p-8 rounded-2xl border border-gray-700 w-96 shadow-xl"
       >
-        <h2 className="text-2xl font-bold mb-6 text-orange-400">
-          Welcome Back
+        <h2 className="text-2xl mb-6 text-orange-400">
+          Welcome Back Consumer! Please Sign Yo Ass In:
         </h2>
 
         <div className="space-y-4">

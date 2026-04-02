@@ -78,7 +78,7 @@ const Orders = () => {
                 {order.items?.map((item) => (
                   <div key={item.id} className="flex justify-between text-sm">
                     {/* Access the nested product title! */}
-                    <span className="text-amber-300 font-medium">
+                    <span className="text-amber-100 font-medium">
                       {item.product?.title || `Product #${item.product_id}`}
                     </span>
                     <span className="text-gray-300">
