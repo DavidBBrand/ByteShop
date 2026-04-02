@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode"; 
 
 const AuthContext = createContext();
 
@@ -8,24 +9,26 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loading, setLoading] = useState(true);
 
-  // 1. Persist Session: If a token exists on load, we should probably 
-  // fetch the user's profile to make sure the token is still valid.
 useEffect(() => {
-  const initAuth = async () => {
-    try {
-      if (token) {
-        // Even if we don't have a /me endpoint yet, 
-        // we set a placeholder user so the UI updates
-        setUser({ email: "Loading..." }); 
+  const initAuth = () => {
+    const savedToken = localStorage.getItem("token");
+    if (savedToken) {
+      try {
+        // Decode the token to get the "sub" field (which is your email)
+        const decoded = jwtDecode(savedToken);
+        
+        // FastAPI usually puts the email/username in the 'sub' field
+        setUser({ email: decoded.sub }); 
+      } catch (err) {
+        console.error("Invalid token", err);
+        localStorage.removeItem("token");
+        setUser(null);
       }
-    } catch (err) {
-      localStorage.removeItem("token");
-    } finally {
-      setLoading(false); // <--- THIS MUST RUN
     }
+    setLoading(false);
   };
   initAuth();
-}, [token]);
+}, []);
 
   const login = async (email, password) => {
     // IMPORTANT: FastAPI's OAuth2PasswordRequestForm expects 
