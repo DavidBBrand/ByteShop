@@ -39,7 +39,7 @@ class OrderItem(Base):
 
     # Relationships for easy data access
     order = relationship("Order", back_populates="items")
-    product = relationship("Product") # No back_populates needed on Product unless ya want to see all orders for a product
+    product = relationship("Product") # No back_populates needed on Product unless want to see all orders for a product
 
 class Category(Base):
     __tablename__ = "categories"

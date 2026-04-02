@@ -78,7 +78,7 @@ def read_products(db: Session = Depends(get_db)):
 def create_order(
     order_data: schemas.OrderCreate, 
     db: Session = Depends(get_db), 
-    current_user: models.User = Depends(auth_utils.get_current_user) 
+    current_user: models.User = Depends(auth_utils.get_current_user) # bouncer or security guard for our app
 ):
     try:
         # 1. Create the Order linked to current_user

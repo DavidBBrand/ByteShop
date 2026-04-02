@@ -72,7 +72,7 @@ const Checkout = () => {
   return (
     <div className="max-w-md mx-auto p-6 bg-gray-800 rounded-lg mt-10">
       <h2 className="text-2xl font-bold mb-4 text-orange-400">Checkout</h2>
-      <form onSubmit={handleSubmit} className="space-y-4 text-black">
+      <form onSubmit={handleSubmit} className="space-y-4 text-white">
         <input
           className="w-full p-2 rounded"
           placeholder="Full Name"

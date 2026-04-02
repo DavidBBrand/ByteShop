@@ -50,9 +50,8 @@ class OrderItem(BaseModel):
     product_id: int
     quantity: int
     price_at_purchase: float
-
-    class Config:
-        from_attributes = True
+    product: Product # This allows us to include product details in the order item response
+    model_config = {"from_attributes": True}
 
 class Order(BaseModel):
     id: int
@@ -62,5 +61,4 @@ class Order(BaseModel):
     # This allows us to see the list of items inside the order
     items: List[OrderItem] = [] 
 
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}
