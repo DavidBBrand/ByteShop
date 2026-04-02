@@ -65,21 +65,21 @@ function App() {
               to="/"
               className="flex items-center gap-3 hover:opacity-80 transition-opacity"
             >
-              <h1 className="text-3xl font-extrabold bg-linear-to-r from-orange-500 to-rose-500 bg-clip-text text-transparent tracking-tighter">
+              <h1 className="text-3xl mr-8 font-extrabold bg-linear-to-r from-green-600 via-blue-600 to-purple-600 bg-clip-text text-transparent tracking-tighter">
                 ByteShop
               </h1>
             </Link>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-8">
               {/* Conditional Auth Links */}
               {user && user.email ? (
                 <>
-                  <span className="text-gray-400 text-sm hidden md:block">
-                    Hello, <span className="text-orange-300 font-medium">{user.email}</span>!
+                  <span className="text-amber-500 font-bold text-sm hidden md:block">
+                    Hello, <span className="bg-linear-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent font-bold">{user.email}</span>!
                   </span>
                   <button
                     onClick={handleLogout}
-                    className="text-sm text-rose-400 hover:text-rose-300 transition-colors"
+                    className="bg-linear-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent font-bold hover:text-rose-500 transition-colors"
                   >
                     Logout
                   </button>

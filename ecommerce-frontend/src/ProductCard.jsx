@@ -56,11 +56,11 @@ const ProductCard = ({ product }) => {
         <button
           onClick={() => addToCart(product)}
           disabled={product.stock_quantity === 0}
-          className={`w-full py-3 px-6 rounded-xl font-bold text-white transition-all duration-200 
+          className={`w-full py-3 px-6 rounded-xl text-white transition-all duration-200 
             ${
               product.stock_quantity === 0
                 ? "bg-gray-700 cursor-not-allowed opacity-50 text-gray-500"
-                : "bg-linear-to-r from-orange-500 via-orange-600 to-rose-600 hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20"
+                : "bg-linear-to-r from-orange-700  to-violet-900 hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20"
             }`}
         >
           {product.stock_quantity === 0 ? "Sold Out" : "Add to Cart"}

@@ -38,7 +38,7 @@ const Orders = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-8 text-orange-500">Order History</h2>
+      <h2 className="text-3xl font-bold mb-8 bg-linear-to-r from-amber-200 to-orange-700 bg-clip-text text-transparent">Order History</h2>
 
       {orders.length === 0 ? (
         <div className="bg-gray-800 p-10 rounded-2xl text-center">

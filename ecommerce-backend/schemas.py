@@ -1,5 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from typing import List
+from datetime import datetime
 
 # --- User Schemas ---
 class UserBase(BaseModel):
@@ -55,6 +56,7 @@ class OrderItem(BaseModel):
 
 class Order(BaseModel):
     id: int
+    created_at: datetime
     customer_name: str
     shipping_address: str
     total_price: float

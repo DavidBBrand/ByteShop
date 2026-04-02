@@ -111,6 +111,7 @@ def create_order(
 
             # 3. Deduct stock
             product.stock_quantity -= item.quantity
+            print(f"DEBUG: Product {product.title} new stock: {product.stock_quantity}")
 
         db.commit() 
         return {
