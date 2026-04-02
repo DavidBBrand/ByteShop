@@ -60,7 +60,7 @@ const ProductCard = ({ product }) => {
             ${
               product.stock_quantity === 0
                 ? "bg-gray-700 cursor-not-allowed opacity-50 text-gray-500"
-                : "bg-linear-to-r from-orange-700  to-violet-900 hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20"
+                : "bg-linear-to-r from-rose-800  to-violet-1000 hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20"
             }`}
         >
           {product.stock_quantity === 0 ? "Sold Out" : "Add to Cart"}
