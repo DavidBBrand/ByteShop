@@ -6,8 +6,10 @@ from dotenv import load_dotenv
 # load env. vars
 load_dotenv()
 # pull the url from .env, with a local sqlite fallback for development
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./sql_app.db")
 
+# start with empty dictionary as default for connect_args
+connect_args = {}
 # add a conditional check so it doesn't break if you switch to PostgreSQL or MySQL in future
 if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
     connect_args = {"check_same_thread": False}
