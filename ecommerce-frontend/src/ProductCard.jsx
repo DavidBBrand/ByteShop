@@ -11,7 +11,10 @@ const ProductCard = ({ product }) => {
         <img
           src={product.image_url}
           alt={product.title}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          onError={(e) => {
+            e.target.src =
+              "https://placehold.co/600x400/111827/4ade80?text=Byte+Coming+Soon";
+          }}
         />
       </div>
 
@@ -39,7 +42,9 @@ const ProductCard = ({ product }) => {
               </span>
               <span
                 className={`text-xs font-medium ${
-                  product.stock_quantity < 5 ? "text-rose-400 animate-pulse" : "text-gray-500"
+                  product.stock_quantity < 5
+                    ? "text-rose-400 animate-pulse"
+                    : "text-gray-500"
                 }`}
               >
                 {product.stock_quantity} units available
@@ -60,7 +65,7 @@ const ProductCard = ({ product }) => {
             ${
               product.stock_quantity === 0
                 ? "bg-gray-700 cursor-not-allowed opacity-50 text-gray-500"
-                : "bg-linear-to-r from-rose-800  to-violet-1000 hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20"
+                : "bg-linear-to-r  from-orange-400 to-rose-700   hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20"
             }`}
         >
           {product.stock_quantity === 0 ? "Sold Out" : "Add to Cart"}

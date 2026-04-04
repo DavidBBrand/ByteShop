@@ -1,9 +1,11 @@
 import bcrypt
+import os
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
+from dotenv import load_dotenv 
 
 # Import your database and models 
 # (Ensure these filenames match your project structure)
@@ -11,9 +13,10 @@ import database
 import models
 
 # --- CONFIGURATION ---
-SECRET_KEY = "your-very-secret-key-here"  # In production, use an environment variable
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+load_dotenv()
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 
 # This tells FastAPI where to fetch the token from
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")

@@ -1,11 +1,23 @@
 # Frontend
 ecommerce-frontend/node_modules/
 ecommerce-frontend/dist/
-.env
 
 # Backend
 ecommerce-backend/venv/
+ecommerce-backend/.env
+# This catches the .env if it's in the root too
+.env 
+
+# Global Wildcards
 **/__pycache__/
 *.pyc
-ecommerce-backend/*.db
 .DS_Store
+
+# Database Global Wildcards
+# This catches any SQLite database file in any directory
+*.db
+*.sqlite
+*.sqlite3
+# Catching specific local journals/wal files SQLite creates
+*.db-journal
+*.db-wal
