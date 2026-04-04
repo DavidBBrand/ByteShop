@@ -65,7 +65,7 @@ function App() {
               to="/"
               className="flex items-center gap-3 hover:opacity-80 transition-opacity"
             >
-              <h1 className="text-3xl mr-8 font-extrabold bg-linear-to-r from-green-600 via-blue-600 to-purple-600 bg-clip-text text-transparent tracking-tighter">
+              <h1 className="text-3xl mr-8 font-extrabold bg-linear-to-r from-orange-500 to-rose-600 bg-clip-text text-transparent tracking-tighter">
                 ByteShop
               </h1>
             </Link>
@@ -74,12 +74,12 @@ function App() {
               {/* Conditional Auth Links */}
               {user && user.email ? (
                 <>
-                  <span className="text-amber-500 font-bold text-sm hidden md:block">
+                  <span className="text-amber-500 font-bold text-lg hidden md:block">
                     Hello, <span className="bg-linear-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent font-bold">{user.email}</span>!
                   </span>
                   <button
                     onClick={handleLogout}
-                    className="bg-linear-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent font-bold hover:text-rose-500 transition-colors"
+                    className="bg-linear-to-r text-lg from-orange-400 to-rose-500 bg-clip-text text-transparent font-bold hover:text-rose-500 transition-colors"
                   >
                     Logout
                   </button>
@@ -87,7 +87,7 @@ function App() {
               ) : !user ? (
                 <Link
                   to="/login"
-                  className="text-sm text-orange-400 hover:text-orange-300 font-medium"
+                  className="text-lg text-orange-400 hover:text-orange-300 font-medium"
                 >
                   Login
                 </Link>
@@ -95,7 +95,7 @@ function App() {
               {user && (
                 <Link
                   to="/orders"
-                  className="text-sm text-gray-400 hover:text-white"
+                  className="text-lg text-gray-400 hover:text-white"
                 >
                   My Orders
                 </Link>
@@ -103,7 +103,7 @@ function App() {
 
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-full transition-all border border-gray-700 shadow-lg shadow-orange-500/10"
+                className="bg-gray-800 hover:bg-gray-700 text-white  px-4 py-2 rounded-full transition-all border border-gray-700 shadow-lg shadow-orange-500/10"
               >
                 🛒 Cart:{" "}
                 <span className="text-orange-400 font-bold">{cartCount}</span>
