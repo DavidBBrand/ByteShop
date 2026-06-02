@@ -1,6 +1,8 @@
 import { useState, FormEvent } from 'react';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import { api } from './api';
 import { useNavigate, Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -11,13 +13,13 @@ const Register = () => {
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post('http://127.0.0.1:8000/register', { username, email, password });
-      alert('Registration successful! Please log in.');
+      await api.post('/register', { username, email, password });
+      toast.success('Account created! Please log in.');
       navigate('/login');
     } catch (err) {
       const axiosErr = err as AxiosError<{ detail: string | unknown }>;
       const errorMessage = axiosErr.response?.data?.detail;
-      alert(
+      toast.error(
         typeof errorMessage === 'string' ? errorMessage : 'Registration failed. Check console.'
       );
       console.error('Registration Error:', axiosErr.response?.data);

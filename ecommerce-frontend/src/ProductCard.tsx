@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useCart } from './useCart';
 import { Product } from './types';
 
@@ -23,7 +24,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
       <div className="flex flex-1 flex-col p-4">
         <div className="mb-2 flex items-start justify-between">
-          <h3 className="text-sm font-bold text-white line-clamp-1">{product.title}</h3>
+          <Link to={`/products/${product.id}`} className="hover:text-orange-300 transition-colors">
+            <h3 className="text-sm font-bold text-white line-clamp-1">{product.title}</h3>
+          </Link>
           <span className="text-lg font-bold text-orange-400">${product.price.toFixed(2)}</span>
         </div>
 

@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import { api } from './api';
 import { User } from './types';
 
 interface JwtPayload {
@@ -50,8 +51,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     params.append('password', password);
 
     try {
-      const response = await axios.post<{ access_token: string }>(
-        'http://127.0.0.1:8000/token',
+      const response = await api.post<{ access_token: string }>(
+        '/token',
         params,
         { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
       );

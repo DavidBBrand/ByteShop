@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import axios from 'axios';
+import toast from 'react-hot-toast';
+import { api } from './api';
 import ProductCard from './ProductCard';
 import CartDrawer from './CartDrawer';
 import Checkout from './Checkout';
@@ -10,28 +11,28 @@ import { useAuth } from './AuthContext';
 import Register from './Register';
 import Orders from './Orders';
 import ProtectedRoute from './ProtectedRoute';
+import ProductDetail from './ProductDetail';
 import { Product } from './types';
+import { ProductGridSkeleton } from './SkeletonCard';
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [showLogoutAlert, setShowLogoutAlert] = useState(false);
 
   const { setIsCartOpen, cartCount } = useCart();
   const { user, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
-    setShowLogoutAlert(true);
-    setTimeout(() => setShowLogoutAlert(false), 3000);
+    toast.success('Successfully logged out!');
   };
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get<Product[]>('http://127.0.0.1:8000/products');
+        const response = await api.get<Product[]>('/products');
         setProducts(response.data);
       } catch {
         setError('Could not connect to the store. Is the backend running?');
@@ -42,13 +43,6 @@ function App() {
     fetchProducts();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex h-screen items-center justify-center text-xl text-white bg-gray-900">
-        Loading ByteShop...
-      </div>
-    );
-  }
   if (error) {
     return (
       <div className="flex h-screen items-center justify-center text-red-500 font-bold bg-gray-900">
@@ -109,25 +103,24 @@ function App() {
           </div>
         </nav>
 
-        {showLogoutAlert && (
-          <div className="fixed top-20 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-bounce">
-            Successfully logged out!
-          </div>
-        )}
-
         <Routes>
           <Route
             path="/"
             element={
               <main className="max-w-7xl mx-auto p-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                  {products.map(product => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
-                </div>
+                {loading ? (
+                  <ProductGridSkeleton />
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                    {products.map(product => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
+                  </div>
+                )}
               </main>
             }
           />
+          <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
           <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
           <Route path="/login" element={<Login />} />

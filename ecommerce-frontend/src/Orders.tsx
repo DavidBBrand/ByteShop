@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
 import { Link } from 'react-router-dom';
 import { Order } from './types';
+import { API_URL } from './api';
+import { OrderSkeleton } from './SkeletonCard';
 
 const Orders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -11,7 +13,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/orders/me', {
+        const response = await fetch(`${API_URL}/orders/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (response.ok) {
@@ -29,7 +31,12 @@ const Orders = () => {
   }, [token]);
 
   if (loading) {
-    return <div className="p-10 text-center text-gray-400">Loading your history...</div>;
+    return (
+      <div className="max-w-4xl mx-auto p-6">
+        <div className="h-8 bg-gray-700 rounded w-48 mb-8 animate-pulse" />
+        <OrderSkeleton />
+      </div>
+    );
   }
 
   return (

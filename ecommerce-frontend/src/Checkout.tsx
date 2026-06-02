@@ -2,6 +2,8 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import { useCart } from './useCart';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
+import { API_URL } from './api';
+import toast from 'react-hot-toast';
 
 interface CustomerInfo {
   name: string;
@@ -35,7 +37,7 @@ const Checkout = () => {
     e.preventDefault();
 
     if (!token) {
-      alert('You must be logged in to checkout.');
+      toast.error('You must be logged in to checkout.');
       navigate('/login');
       return;
     }
@@ -53,7 +55,7 @@ const Checkout = () => {
         })),
       };
 
-      const response = await fetch('http://127.0.0.1:8000/orders', {
+      const response = await fetch(`${API_URL}/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -64,13 +66,13 @@ const Checkout = () => {
 
       if (response.ok) {
         const result = (await response.json()) as OrderResponse;
-        alert(`Success! Order #${result.order_id} placed.`);
+        toast.success(`Order #${result.order_id} placed!`);
         clearCart();
         navigate('/');
       } else {
         const errorText = await response.text();
         console.error('Server rejected request:', errorText);
-        alert('Checkout failed. Check the console for details.');
+        toast.error('Checkout failed. Check the console for details.');
       }
     } catch (err) {
       console.error('Checkout error:', err);
