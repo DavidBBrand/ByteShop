@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { useAuth } from "./AuthContext";
-import { useNavigate, Link } from "react-router-dom";
+import { useState, FormEvent } from 'react';
+import { useAuth } from './AuthContext';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = await login(email, password);
     if (result.success) {
-      navigate("/"); // Send them back to the store
+      navigate('/');
     } else {
       alert(result.error);
     }
@@ -33,14 +33,14 @@ const Login = () => {
             type="email"
             placeholder="Email (username)"
             className="w-full p-3 rounded bg-gray-900 border border-gray-700 text-white focus:border-orange-500 outline-none"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             required
           />
           <input
             type="password"
             placeholder="Password"
             className="w-full p-3 rounded bg-gray-900 border border-gray-700 text-white focus:border-orange-500 outline-none"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             required
           />
           <button
@@ -51,7 +51,7 @@ const Login = () => {
           </button>
 
           <p className="text-center text-sm text-gray-400 mt-4">
-            New to ByteShop?{" "}
+            New to ByteShop?{' '}
             <Link to="/register" className="text-orange-400 hover:underline">
               Create an account
             </Link>

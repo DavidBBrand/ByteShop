@@ -1,27 +1,30 @@
-import React from 'react';
 import { useCart } from './useCart';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 export default function CartDrawer() {
   const { isCartOpen, setIsCartOpen, cartItems, updateQuantity, removeFromCart, cartTotal } = useCart();
-  const navigate = useNavigate(); // 2. Initialize it
+  const navigate = useNavigate();
 
-  //  Create a helper to handle the transition
   const handleCheckoutClick = () => {
-    setIsCartOpen(false); // Close the drawer first
-    navigate('/checkout'); // Then send them to the checkout page
+    setIsCartOpen(false);
+    navigate('/checkout');
   };
 
   return (
     <>
-      <div className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity ${isCartOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsCartOpen(false)} />
-      <div className={`fixed right-0 top-0 h-full w-full max-w-md bg-gray-900 border-l border-gray-800 z-50 transform transition-transform duration-300 ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity ${isCartOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        onClick={() => setIsCartOpen(false)}
+      />
+      <div
+        className={`fixed right-0 top-0 h-full w-full max-w-md bg-gray-900 border-l border-gray-800 z-50 transform transition-transform duration-300 ${isCartOpen ? 'translate-x-0' : 'translate-x-full'}`}
+      >
         <div className="flex flex-col h-full p-6 text-white">
           <div className="flex justify-between items-center border-b border-gray-800 pb-4">
             <h2 className="text-xl font-bold uppercase tracking-widest">Cart</h2>
             <button onClick={() => setIsCartOpen(false)} className="text-2xl">&times;</button>
           </div>
-          
+
           <div className="flex-1 overflow-y-auto py-4">
             {cartItems.length === 0 ? (
               <p className="text-center text-gray-500 mt-10">Your cart is empty.</p>
@@ -49,15 +52,13 @@ export default function CartDrawer() {
               <span>Total:</span>
               <span className="text-orange-500">${cartTotal.toFixed(2)}</span>
             </div>
-            
-            {/*  Add the onClick handler here */}
-            <button 
+            <button
               onClick={handleCheckoutClick}
               disabled={cartItems.length === 0}
               className={`w-full py-4 font-bold uppercase transition-colors ${
-                cartItems.length === 0 
-                ? 'bg-gray-700 cursor-not-allowed text-gray-400' 
-                : 'bg-orange-600 hover:bg-orange-500 text-white'
+                cartItems.length === 0
+                  ? 'bg-gray-700 cursor-not-allowed text-gray-400'
+                  : 'bg-orange-600 hover:bg-orange-500 text-white'
               }`}
             >
               Checkout
