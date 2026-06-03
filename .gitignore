@@ -1,12 +1,16 @@
 # Frontend
 ecommerce-frontend/node_modules/
 ecommerce-frontend/dist/
+ecommerce-frontend/.env
+ecommerce-frontend/.env.local
+ecommerce-frontend/.env.*.local
 
 # Backend
 ecommerce-backend/venv/
 ecommerce-backend/.env
-# This catches the .env if it's in the root too
-.env 
+
+# Root
+.env
 
 # Global Wildcards
 **/__pycache__/
